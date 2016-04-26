@@ -8,6 +8,7 @@ String instruction3= "Use the letter i, to add 1 to each number";
 String instruction4= "Use the letter d, to decrease all numbers by 1";
 String instruction5= "Use the letter t, to triple each number";
 String instruction6= "Use the letter r, to give a new random number between 0 & 999";
+String instruction7= "Use the letter o, to order from the smallest to the biggest";
 
 
 int [] a = { 12, 155, 9, 344, 669, 132, 863, 231};
@@ -45,6 +46,7 @@ void draw() {
   text(instruction4, width/2, 50 + (space*3));
   text(instruction5, width/2, 50 + (space*4));
   text(instruction6, width/2, 50 + (space*5));
+  text(instruction7, width/2, 50 + (space*6));
 
 }
 
@@ -66,6 +68,7 @@ void keyPressed() {
   else if (key == 'd') dec(a, amount);
   else if (key == 't') triple(a, amount);
   else if (key == 'r') random(a, amount);
+  else if (key == 'o') order(a, amount);
 }
 
 // Move last number to the end of the array
@@ -128,4 +131,11 @@ void random( int r[], int last) {
    for (int j = 0 ; j < last; j+= 1) {
      r[j]=  int(random( 0, 999));
   }
+}
+
+// Order the number from the smallest to the biggest
+void order ( int o[], int last) {
+   for (int j = last; j > 1 ; j-= 1) {
+      big(o, j);
+ }
 }
