@@ -1,7 +1,16 @@
 // Project 4
 
+Button myButton1;
+Button myButton2;
+Button myButton3;
+Button myButton4;
+Button myButton5;
+Button myButton6;
+Button myButton7;
+
 String title= "Project 4";
 String author= "Loic Perez";
+
 String instruction1= "Use the letter b, to put the biggest number at the end";
 String instruction2= "Use the letter s, to put the smallest number at the top";
 String instruction3= "Use the letter i, to add 1 to each number";
@@ -10,18 +19,61 @@ String instruction5= "Use the letter t, to triple each number";
 String instruction6= "Use the letter r, to give a new random number between 0 & 999";
 String instruction7= "Use the letter o, to order from the smallest to the biggest";
 
+String button1 ="Big";
+String button2 = "Small";
+String button3 = "Increase";
+String button4 = "Decrease";
+String button5 = "Triple";
+String button6 = "Random";
+String button7 = "Order";
+
+int button1X = 50, button1Y = 250, buttonSize = 80;
+int button2X = 150, button2Y = 250;
+int button3X = 250, button3Y = 250;
+int button4X = 350, button4Y = 250;
+int button5X = 450, button5Y = 250;
+int button6X = 550, button6Y = 250;
+int button7X = 650, button7Y = 250;
+
+boolean buttonOver1 = false;
+boolean buttonOver2 = false;
+boolean buttonOver3 = false;
+boolean buttonOver4 = false;
+boolean buttonOver5 = false;
+boolean buttonOver6 = false;
+boolean buttonOver7 = false;
 
 int [] a = { 12, 155, 9, 344, 669, 132, 863, 231};
 int amount = a.length;
 
 void setup() {
   size(760, 380);
+  myButton1 = new Button(color(100,100,100),button1X, button1Y, buttonSize);
+  myButton2 = new Button(color(100,100,100),button2X, button2Y, buttonSize);
+  myButton3 = new Button(color(100,100,100),button3X, button3Y, buttonSize);
+  myButton4 = new Button(color(100,100,100),button4X, button4Y, buttonSize);
+  myButton5 = new Button(color(100,100,100),button5X, button5Y, buttonSize);
+  myButton6 = new Button(color(100,100,100),button6X, button6Y, buttonSize);
+  myButton7 = new Button(color(100,100,100),button7X, button7Y, buttonSize);
 }
 
 void draw() {
   background(200, 155, 180);
+  
+  myButton1.display();
+  myButton2.display();
+  myButton3.display();
+  myButton4.display();
+  myButton5.display();
+  myButton6.display();
+  myButton7.display();
+  
+  update();
+  
+  text();
   fill(0);
   textSize(12);
+  
   int space = 18;
 
   float x=width/4, y=30;
@@ -47,7 +99,6 @@ void draw() {
   text(instruction5, width/2, 50 + (space*4));
   text(instruction6, width/2, 50 + (space*5));
   text(instruction7, width/2, 50 + (space*6));
-
 }
 
 
@@ -61,7 +112,7 @@ int sum( int a[], int b ) {  // b = last number
 }
 
 void keyPressed() {
-  if (key == 'q') exit();
+  if      (key == 'q') exit();
   else if (key == 'b') big(a, amount);
   else if (key == 's') small(a, amount);
   else if (key == 'i') inc(a, amount);
@@ -138,4 +189,125 @@ void order ( int o[], int last) {
    for (int j = last; j > 1 ; j-= 1) {
       big(o, j);
  }
+}
+
+class Button {
+
+  color c;
+  int button1X;
+  int button1Y;
+  int buttonSize;
+
+  Button(color tempC, int temp1X, int temp1Y, int tempSize) {
+
+    c = tempC;
+    button1X = temp1X;
+    button1Y = temp1Y;
+    buttonSize = tempSize;
+  }
+
+  // Button
+  void display() {      
+    stroke(0);
+    fill(180,180,180);
+    rect(button1X, button1Y, buttonSize, buttonSize);
+  }
+}
+
+
+void mousePressed() {
+  if (buttonOver1) {
+    big(a, amount);
+  } else if (buttonOver2) {
+    small(a, amount);
+  } else if (buttonOver3) {
+    inc(a, amount);
+  } else if (buttonOver4) {
+    dec(a, amount);
+  } else if (buttonOver5) {
+    triple(a, amount);
+  } else if (buttonOver6) {
+    random(a, amount);
+  } else if (buttonOver7) {
+    order(a, amount);
+  }
+}
+
+void text() {
+  fill(0);
+  text(button1, 80,300);
+  text(button2, 180,300);
+  text(button3, 280,300);
+  text(button4, 380,300);
+  text(button5, 480,300);
+  text(button6, 580,300);
+  text(button7, 680,300);
+}
+
+void update() {
+  if         ( overButton  (button1X, button1Y, buttonSize, buttonSize) ) {
+      buttonOver1 = true;
+      buttonOver2 = false;
+      buttonOver3 = false;
+      buttonOver4 = false;
+      buttonOver5 = false;
+      buttonOver6 = false;
+      buttonOver7 = false;
+  } else if  ( overButton  (button2X, button2Y, buttonSize, buttonSize) )  {
+      buttonOver1 = false;
+      buttonOver2 = true;
+      buttonOver3 = false;
+      buttonOver4 = false;
+      buttonOver5 = false;
+      buttonOver6 = false;
+      buttonOver7 = false;
+  } else if  ( overButton  (button3X, button3Y, buttonSize, buttonSize) )  {
+      buttonOver1 = false;
+      buttonOver2 = false;
+      buttonOver3 = true;
+      buttonOver4 = false;
+      buttonOver5 = false;
+      buttonOver6 = false;
+      buttonOver7 = false;
+  } else if  ( overButton  (button4X, button4Y, buttonSize, buttonSize) )  {
+      buttonOver1 = false;
+      buttonOver2 = false;
+      buttonOver3 = false;
+      buttonOver4 = true;
+      buttonOver5 = false;
+      buttonOver6 = false;
+      buttonOver7 = false;
+  } else if  ( overButton  (button5X, button5Y, buttonSize, buttonSize) )  {
+      buttonOver1 = false;
+      buttonOver2 = false;
+      buttonOver3 = false;
+      buttonOver4 = false;
+      buttonOver5 = true;
+      buttonOver6 = false;
+      buttonOver7 = false;
+  } else if  ( overButton  (button6X, button6Y, buttonSize, buttonSize) )  {
+      buttonOver1 = false;
+      buttonOver2 = false;
+      buttonOver3 = false;
+      buttonOver4 = false;
+      buttonOver5 = false;
+      buttonOver6 = true;
+      buttonOver7 = false;
+  } else if  ( overButton  (button7X, button7Y, buttonSize, buttonSize) )  {
+      buttonOver1 = false;
+      buttonOver2 = false;
+      buttonOver3 = false;
+      buttonOver4 = false;
+      buttonOver5 = false;
+      buttonOver6 = false;
+      buttonOver7 = true;
+  }   
+}
+  
+boolean overButton(int x, int y, int width, int height) {
+  if (mouseX >= x && mouseX <= x+width && mouseY >= y && mouseY <= y+height) {
+    return true;
+  } else {
+    return false;
+  }
 }
